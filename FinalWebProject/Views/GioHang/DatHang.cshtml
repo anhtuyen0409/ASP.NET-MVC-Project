@@ -1,0 +1,70 @@
+﻿@model IEnumerable<FinalWebProject.Models.GioHang>
+@{
+    ViewBag.Title = "DatHang";
+    Layout = "~/Views/Shared/_LayoutCustomer.cshtml";
+}
+
+<h2 style="text-align:center; color:blue;">Thông Tin Đơn Hàng</h2>
+<hr />
+<table align="center" border="1">
+    <tr style="text-align:center; font-weight:bold;">
+        <td>Tên sản phẩm</td>
+        <td>Hình ảnh</td>
+        <td>Đơn giá</td>
+        <td>Số lượng</td>
+        <td>Thành tiền</td>
+    </tr>
+    @foreach (var item in Model)
+    {
+        <tr style="text-align:center; font-weight:bold;">
+        <td style="width:400px;">@item.sTenSP</td>
+        <td><img style="width:200px;height:200px;" src="~/template/img/@item.sHinhAnh" /></td>
+        @using (Html.BeginForm("CapNhatGioHang", "GioHang", new { @maSP = item.iMaSP }))
+        {
+
+            <td style="width:200px;">@String.Format("{0:0,0}", item.iGiatien)</td>
+            <td style="width:100px;">@item.iSoLuong</td>
+            <td style="width:200px;">@String.Format("{0:0,0}", item.iThanhTien)</td>
+        }
+        </tr>
+    }
+    <tr style="font-weight: bold;text-align:right;color:red;">
+        <td colspan="3">Số lượng: @ViewBag.tongsoluong</td>
+        <td colspan="3">Tổng tiền: @String.Format("{0:0,0}",ViewBag.tongtien) VNĐ</td>
+    </tr>
+    <tr style="font-weight: bold;text-align:right;color:blue;">
+        <td colspan="6">
+            @Html.ActionLink("Trở về giỏ hàng","Index","GioHang")
+        </td>
+    </tr>
+</table>
+
+
+<hr />
+<div style="border-radius: 5px; background-color: #f2f2f2; padding: 20px;">
+    @using (Html.BeginForm("DatHang", "GioHang", FormMethod.Post))
+    {
+        <h3 style="color:blue;">Thông Tin Đặt Hàng</h3>
+        <hr />
+        <form action="/action_page.php">
+            <label for="fname">Họ tên</label>
+            <input style="width: 100%; padding: 12px 20px; margin: 8px 0; display: inline-block; border: 1px solid #ccc; border-radius: 4px; box-sizing: border-box;" type="text" id="fname" name="TenKH"> <!--name phải trùng với cột trong db-->
+            <label for="fname">Địa chỉ</label>
+            <input style="width: 100%; padding: 12px 20px; margin: 8px 0; display: inline-block; border: 1px solid #ccc; border-radius: 4px; box-sizing: border-box;" type="text" id="fname" name="DiaChi">
+            <label for="fname">Số điện thoại</label>
+            <input style="width: 100%; padding: 12px 20px; margin: 8px 0; display: inline-block; border: 1px solid #ccc; border-radius: 4px; box-sizing: border-box;" type="text" id="fname" name="SDT">
+            <label for="fname">Ngày đặt hàng</label>
+            <input style="width: 100%; padding: 12px 20px; margin: 8px 0; display: inline-block; border: 1px solid #ccc; border-radius: 4px; box-sizing: border-box;" type="text" id="fname" name="NgayDat" value="@DateTime.Now.ToString()">
+            <label for="fname">Ngày giao hàng</label>
+            <input type="date" id="fname" name="NgayGiao">
+            <input style="width: 100%; background-color: #4CAF50; color: white; padding: 14px 20px; margin: 8px 0; border: none; border-radius: 4px; cursor: pointer;" type="submit" value="xác nhận">
+        </form>
+    }
+
+</div>
+
+<style>
+    input[type=submit]:hover {
+            background-color: #45a049;
+    }
+</style>

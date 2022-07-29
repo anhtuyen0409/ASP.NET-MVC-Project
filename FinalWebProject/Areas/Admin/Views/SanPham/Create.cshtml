@@ -1,0 +1,85 @@
+﻿<!--đang test-->
+
+@model FinalWebProject.Models.SanPham
+@{
+    ViewBag.Title = "Create";
+    Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<div style="border-radius: 5px; background-color: #f2f2f2; padding: 20px;">
+    @using (Html.BeginForm("Create", "SanPham", FormMethod.Post))
+    {
+        <h3 style="color:red;">Thêm sản phẩm</h3>
+        <hr />
+        <form action="/action_page.php">
+            <label for="country">Loại sản phẩm</label>
+            @{
+                FinalWebProject.Models.HangTheThaoContext db = new FinalWebProject.Models.HangTheThaoContext();
+                var loaisanphams = db.LoaiSanPhams.ToList();
+                <select id="country" name="MaLoaiSP">
+                    @foreach (var item in loaisanphams)
+                    {
+                        <option value="@item.MaLoaiSP">@item.TenLoaiSP</option>
+                    }
+
+                </select>
+            }
+
+            <label for="country">Nhà sản xuất</label>
+            @{
+                var nhasanxuats = db.NhaSanXuats.ToList();
+                <select id="country" name="MaNSX">
+                    @foreach (var item in nhasanxuats)
+                    {
+                        <option value="@item.MaNSX">@item.TenNSX</option>
+                    }
+
+                </select>
+            }
+
+            <label for="fname">Tên sản phẩm</label>
+            <input type="text" id="fname" name="TenSP"> <!--name phải trùng với cột trong db-->
+            <label for="fname">Mô tả</label>
+            <input type="text" id="fname" name="MoTa">
+            <label for="fname">Hình ảnh</label>
+            <input style="width:100%;" type="file" id="fname" name="HinhAnh">
+            <label for="fname">Giá tiền</label>
+            <input type="text" id="fname" name="GiaTien">
+            <label for="fname">Ngày cập nhật</label>
+            <input type="date" id="fname" name="NgayCapNhat">
+            <input type="submit" value="Thêm">
+        </form>
+    }
+
+</div>
+
+<style>
+    input[type=text], select {
+        width: 100%;
+        padding: 12px 20px;
+        margin: 8px 0;
+        display: inline-block;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        box-sizing: border-box;
+    }
+
+    input[type=submit] {
+        width: 100%;
+        background-color: #4CAF50;
+        color: white;
+        padding: 14px 20px;
+        margin: 8px 0;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+    }
+
+        input[type=submit]:hover {
+            background-color: #45a049;
+        }
+
+  
+</style>
+
+

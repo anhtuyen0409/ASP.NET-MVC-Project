@@ -1,0 +1,54 @@
+﻿
+@{
+    ViewBag.Title = "Edit";
+    Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+
+
+<div>
+    @using (Html.BeginForm("Edit", "LoaiSanPham", FormMethod.Post))
+    {
+        <h3 style="color:red;">Sửa thông tin loại sản phẩm</h3>
+        <hr />
+        <form action="/action_page.php">
+            <label for="fname">Tên loại sản phẩm</label>
+            <input type="text" id="fname" name="TenLoaiSP"> <!--name phải trùng với cột trong db-->
+            <input type="submit" value="Sửa">
+        </form>
+    }
+
+</div>
+
+<style>
+    input[type=text], select {
+        width: 100%;
+        padding: 12px 20px;
+        margin: 8px 0;
+        display: inline-block;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        box-sizing: border-box;
+    }
+
+    input[type=submit] {
+        width: 100%;
+        background-color: #4CAF50;
+        color: white;
+        padding: 14px 20px;
+        margin: 8px 0;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+    }
+
+        input[type=submit]:hover {
+            background-color: #45a049;
+        }
+
+    div {
+        border-radius: 5px;
+        background-color: #f2f2f2;
+        padding: 20px;
+    }
+</style>

@@ -1,0 +1,102 @@
+﻿@model IEnumerable<FinalWebProject.Models.GioHang>
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_LayoutCustomer.cshtml";
+}
+
+<!-- Shoping Cart Section Begin -->
+<section class="shoping-cart spad">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="shoping__cart__table">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th class="shoping__product">Sản phẩm</th>
+                                <th>Giá tiền</th>
+                                <th>Số lượng</th>
+                                <th>Thành tiền</th>
+                                <th></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var item in Model)
+                            {
+                            <tr>
+                                <td class="shoping__cart__item">
+                                    <img style="width:200px;height:200px;" src="~/template/img/@item.sHinhAnh" alt="">
+                                    <h5>@item.sTenSP</h5>
+                                </td>
+                                @using (Html.BeginForm("CapNhatGioHang", "GioHang", new { @maSP = item.iMaSP }))
+                                {
+                                    <td class="shoping__cart__price">
+                                        @String.Format("{0:0,0}", @item.iGiatien) VNĐ
+                                    </td>
+                                    <td class="shoping__cart__quantity">
+                                        <div class="quantity">
+                                            <div class="pro-qty">
+                                                <input type="text" name="txtSoLuong" value="@item.iSoLuong" min="1" max="1000">
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td class="shoping__cart__total">
+                                        @String.Format("{0:0,0}", @item.iThanhTien) VNĐ
+                                    </td>
+
+                                    <td class="shoping__cart__item__close">
+
+                                        <button type="button" class="btn btn-light">@Html.ActionLink("Huỷ", "XoaGioHang", new { @maSP = item.iMaSP })</button>
+                                    </td>
+                                    <td class="shoping__cart__total">
+
+                                        <input type="submit" value="Cập nhật" />
+                                    </td>
+                                }
+
+                            </tr>
+                            }
+                        </tbody>
+                        <tr style="font-weight:bold;color:blue;text-align:right;">
+                            <td>
+                                @Html.ActionLink("Xoá giỏ hàng","XoaTatCaGioHang")
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+
+            <div class="col-lg-6">
+                <div class="shoping__continue">
+                    <div class="shoping__discount">
+                        <h5>Mã giảm giá</h5>
+                        <form action="#">
+                            <input type="text" placeholder="Nhập mã giảm giá của bạn...">
+                            <button type="submit" class="site-btn">Áp dụng</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-6">
+                <div class="shoping__checkout">
+                    <h5>Tổng thanh toán</h5>
+                    <ul>
+
+                        <li>Tổng tiền<span>@String.Format("{0:0,0}", ViewBag.tongtien) VNĐ</span></li>
+                    </ul>
+                    @if (User.Identity.IsAuthenticated)
+                    {
+                        <button type="button" class="btn btn-light">@Html.ActionLink("Đặt hàng", "DatHang", "GioHang")</button>
+                    }
+                    else
+                    {
+                        <h3 style="color:red;">Vui lòng đăng nhập để đặt hàng!</h3>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- Shoping Cart Section End -->
